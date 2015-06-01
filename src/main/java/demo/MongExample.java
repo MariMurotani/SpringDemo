@@ -21,6 +21,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -37,8 +38,6 @@ import demo.mongo.model.User;
  * http://qiita.com/niwashun/items/c52e890180754bf0bc25
  * 
  * */
-@Getter
-@Setter
 @SpringBootApplication
 public class MongExample implements CommandLineRunner {
 	
@@ -50,6 +49,13 @@ public class MongExample implements CommandLineRunner {
 	private Environment env;
 
 	
+	/*@Autowired
+    private MongoTemplate mongoTemplate;
+
+    public void MyBean(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }*/
+    
 	public static void main(String[] args) {
 		SpringApplication.run(MongExample.class, args);
 	}
@@ -86,7 +92,7 @@ public class MongExample implements CommandLineRunner {
 		System.out.println("3. updatedUser : " + updatedUser);
 
 		// delete
-		mongoOperation.remove(searchUserQuery, User.class);
+		//mongoOperation.remove(searchUserQuery, User.class);
 
 		// List, it should be empty now.
 		List<User> listUser = mongoOperation.findAll(User.class);
