@@ -25,8 +25,7 @@ public class User {
 		this.password = password;
 	}
 
-	//getter, setter, toString, Constructors
-
+	
     @Override
     public String toString() {
         return String.format(

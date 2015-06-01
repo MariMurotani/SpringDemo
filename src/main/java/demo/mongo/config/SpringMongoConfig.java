@@ -1,27 +1,15 @@
 package demo.mongo.config;
 
-import java.util.Properties;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.test.context.ActiveProfiles;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 
-import config.ExternalizedConfig;
-import config.ExtraConfig;
-import config.RelaxedConfig;
 
 @Configuration
 @EnableMongoRepositories("demo.mongo.model")

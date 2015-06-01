@@ -26,9 +26,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
-import config.ExternalizedConfig;
-import config.ExtraConfig;
-import config.RelaxedConfig;
 import demo.mongo.config.SpringMongoConfig;
 import demo.mongo.model.User;
 
