@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +19,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -25,6 +27,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Component;
 
 import demo.mongo.config.SpringMongoConfig;
 import demo.mongo.model.User;
@@ -35,7 +38,9 @@ import demo.mongo.model.User;
  * http://qiita.com/niwashun/items/c52e890180754bf0bc25
  * 
  * */
-@SpringBootApplication
+@EnableAutoConfiguration
+@EnableBatchProcessing
+@EnableConfigurationProperties
 public class MongExample implements CommandLineRunner {
 	
 	//	get Applicateion context Example2
@@ -45,14 +50,6 @@ public class MongExample implements CommandLineRunner {
 	@Autowired
 	private Environment env;
 
-	
-	/*@Autowired
-    private MongoTemplate mongoTemplate;
-
-    public void MyBean(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
-    }*/
-    
 	public static void main(String[] args) {
 		SpringApplication.run(MongExample.class, args);
 	}
