@@ -19,6 +19,13 @@ public class User {
 
 	String password;
 
+<<<<<<< HEAD
+=======
+	public String getId() {
+		return id;
+	}
+
+>>>>>>> 01862fbcce28d3482f429b002ac5239b516badca
 	public User(String username, String password) {
 		super();
 		this.username = username;
