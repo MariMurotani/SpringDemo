@@ -1,9 +1,6 @@
 package demo;
 
-import org.springframework.beans.factory.annotation.Value;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+
 
 public class ConsoleApplication {
 	

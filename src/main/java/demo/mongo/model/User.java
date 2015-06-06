@@ -1,6 +1,5 @@
 package demo.mongo.model;
 
-
 import lombok.Getter;
 import lombok.Setter;
 

@@ -17,7 +17,7 @@ public class HelloWorldController {
 	private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping(value="/api",method=RequestMethod.GET)
+    /*RequestMapping(value="/api",method=RequestMethod.GET)
     public @ResponseBody Greeting apiWithJson(@RequestParam(value="name", required=false, defaultValue="Stranger") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
         
@@ -29,5 +29,5 @@ public class HelloWorldController {
     	return "page";
         
     }
-
+*/
 }

@@ -1,36 +1,23 @@
 package demo;
 
 import java.util.List;
-import java.util.Properties;
-
-import javax.annotation.PostConstruct;
-
-import lombok.Getter;
-import lombok.Setter;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.*;
+import org.springframework.data.mongodb.core.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
-import demo.mongo.config.SpringMongoConfig;
 import demo.mongo.model.User;
+
 
 
 /**
@@ -51,12 +38,18 @@ public class MongExample implements CommandLineRunner {
 	private Environment env;
 
 	public static void main(String[] args) {
-		SpringApplication.run(MongExample.class, args);
+		//SpringApplication.run(MongExample.class, args);
+		
+		SpringApplication application = new SpringApplication(MongExample.class);
+		application.setWebEnvironment(false);
+		ApplicationContext context = application.run();
+		SpringApplication.exit(context);
+		
+		
 	}
    
 	@Override
 	public void run(String... args) throws Exception {
-		
 		//	get mongo Template
 		MongoOperations mongoOperation = (MongoOperations) context.getBean("mongoTemplate");
 		
@@ -91,7 +84,6 @@ public class MongExample implements CommandLineRunner {
 		// List, it should be empty now.
 		List<User> listUser = mongoOperation.findAll(User.class);
 		System.out.println("4. Number of user = " + listUser.size());
-		
 		
 	}
 }
