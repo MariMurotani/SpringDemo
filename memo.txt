@@ -1,0 +1,20 @@
+▼mongoのテスト
+[murotanimari]$ cat startmongo.txt
+Then to load mongodb now:
+    launchctl load /usr/local/Cellar/mongodb/2.6.7/homebrew.mxcl.mongodb.plist
+Or, if you don't want/need launchctl, you can just run:
+    mongod --config /usr/local/etc/mongod.conf
+
+plistから起動
+launchctl start homebrew.mxcl.mongodb
+
+▼radisのテスト
+[root]$ redis-server /usr/local/etc/redis.conf
+[murotanimari]$ /usr/local/bin/redis-cli set key val
+OK
+[murotanimari]$ /usr/local/bin/redis-cli get key
+"val"
+
+
+plistから起動
+launchctl start homebrew.mxcl.redis
