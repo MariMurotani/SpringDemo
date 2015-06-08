@@ -1,4 +1,4 @@
-package config;
+package demo.configs;
 
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
 

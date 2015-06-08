@@ -49,6 +49,10 @@ dependencies {
     //	session
     compile("org.springframework.session:spring-session:1.0.1.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-redis:1.2.4.RELEASE")
+	compile("org.springframework.session:spring-session-data-redis:1.0.1.RELEASE")
+    compile("org.springframework.data:spring-data-redis:1.4.1.RELEASE")
+    compile("redis.clients:jedis:2.4.1")
+
     
     //	aws
     //'org.springframework.cloud:spring-cloud-starter:1.0.1.RELEASE'こんなんもあるな
@@ -56,7 +60,6 @@ dependencies {
     //compile("org.springframework.cloud:spring-cloud-aws-autoconfigure:1.0.1.RELEASE")
     
     //	security
-	//compile("org.springframework.session:spring-session-data-redis:1.0.1.RELEASE")
 	//compile("org.springframework.boot:spring-boot-starter-security")
 
     
