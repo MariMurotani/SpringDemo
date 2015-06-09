@@ -4,6 +4,7 @@ buildscript {
     }
     repositories {
        mavenCentral()
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
      }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
@@ -76,4 +77,8 @@ eclipse {
          containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
          containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
     }
+}
+
+springBoot {
+  mainClass = "demo.SpringDemoApplication"
 }
