@@ -1,4 +1,4 @@
-package demo.dto;
+package demo.controller;
 
 public class Greeting {
 

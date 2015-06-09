@@ -1,8 +1,11 @@
 package demo;
 
-public class ConsoleApplocation {
 
+
+public class ConsoleApplication {
+	
 	public static void main(String[] args) {
+
 		// TODO Auto-generated method stub
 		System.out.println("asdfasfa");
 	}
