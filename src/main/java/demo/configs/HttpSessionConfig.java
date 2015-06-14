@@ -24,7 +24,6 @@ public class HttpSessionConfig{
 	
 	//	application.propertiesデフォルト設定にないものだとNULLPが出るので
 	//@Value("${spring.redis.password}")
-	@Nullable
 	private String argSPass;
 			
 	@Bean
