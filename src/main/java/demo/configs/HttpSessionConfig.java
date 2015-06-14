@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
-import com.sun.istack.internal.Nullable;
-
 @Configuration
 @EnableRedisHttpSession
 public class HttpSessionConfig{
