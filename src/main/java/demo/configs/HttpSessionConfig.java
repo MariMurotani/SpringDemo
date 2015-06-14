@@ -1,12 +1,10 @@
 package demo.configs;
 
-import lombok.Data;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @Configuration
@@ -36,6 +34,7 @@ public class HttpSessionConfig{
         if(argSPass != null){
         	jedisConnectionFactory.setPassword(argSPass);
         }
+        
     	System.out.println("redis host name: " + jedisConnectionFactory.getHostName());
     	System.out.println("redis host port: " + jedisConnectionFactory.getPort());
     	System.out.println("redis host pass: " + jedisConnectionFactory.getPassword());
@@ -46,4 +45,9 @@ public class HttpSessionConfig{
  
         return jedisConnectionFactory;
     }
+	
+	@Bean
+	public static ConfigureRedisAction configureRedisAction() {
+	    return ConfigureRedisAction.NO_OP;
+	}
 }
