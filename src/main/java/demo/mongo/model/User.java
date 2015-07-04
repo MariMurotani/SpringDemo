@@ -4,22 +4,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
-@Document(collection = "users")
 public class User {
 
 	@Id
 	private String id;
-
-	String username;
-
-	String password;
-
+	private String username;
+	private String password;
+	private String firstname;
+	private String lastname;
+	private String email1;
+	private String email2;
+	private String mobmail;
+	private String tel1;
+	private String tel2;
+	
 	public User(String username, String password) {
-		super();
 		this.username = username;
 		this.password = password;
 	}
