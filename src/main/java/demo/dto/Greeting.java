@@ -1,4 +1,4 @@
-package demo.controller;
+package demo.dto;
 
 public class Greeting {
 
@@ -17,5 +17,4 @@ public class Greeting {
     public String getContent() {
         return content;
     }
-
 }

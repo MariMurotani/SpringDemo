@@ -9,6 +9,9 @@
 	<configs>
 	</configs>
 	<autoconfigs>
+		<config>java:demo.SpringDemoApplication</config>
+		<config>java:demo.controller.MongoDBSampleWeb</config>
+		<config>java:demo.MongExample</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

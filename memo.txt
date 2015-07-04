@@ -18,3 +18,4 @@ OK
 
 plistから起動
 launchctl start homebrew.mxcl.redis
+
