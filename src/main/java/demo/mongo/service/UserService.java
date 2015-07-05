@@ -33,10 +33,12 @@ public class UserService extends ServiceBase{
       //Assert.notNull(operations, "MongoOperations must not be null!");
       this.mongoOperation = operations;
     }*/
+	
 	public void AddNewUser(String name, String pass) {
 		User user = new User(name,pass);
 		this.mongoOperation.save(user);
 	}
+	
 	public boolean IsExists(String username,String passwd){
 		Query searchUserQuery = this.GetSaerchQuery(username, passwd);
 		Long lres = this.mongoOperation.count(searchUserQuery,User.class);

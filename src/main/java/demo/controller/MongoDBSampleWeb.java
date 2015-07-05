@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import demo.dto.Greeting;
 import demo.dto.Status;
 import demo.mongo.model.User;
 import demo.mongo.service.UserService;
