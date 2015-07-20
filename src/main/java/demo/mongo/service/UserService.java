@@ -23,20 +23,17 @@ public class UserService extends ServiceBase{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-		/**
-		 *Query query = new Query(Criteria.where('tagName').is('water temperature'));
-		query.sort().on('timestamp', Order.DESCENDING);
- * */
-	/*@Autowired
-    public UserService(MongoOperations operations) {
-
-      //Assert.notNull(operations, "MongoOperations must not be null!");
-      this.mongoOperation = operations;
-    }*/
 	
-	public void AddNewUser(String name, String pass) {
-		User user = new User(name,pass);
+	public String AddNewUser(String username,String passwd) throws Exception {
+		Query searchUserQuery = new Query(Criteria.where("username").is(username));
+		Long lres = this.mongoOperation.count(searchUserQuery,User.class);
+		if(lres > 0){
+			throw new Exception("This user already exists");
+		}
+
+		User user = new User(username,passwd);
 		this.mongoOperation.save(user);
+		return user.getId();
 	}
 	
 	public boolean IsExists(String username,String passwd){

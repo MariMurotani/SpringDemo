@@ -5,6 +5,7 @@ buildscript {
     repositories {
        mavenCentral()
     maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+     maven { url "https://repo.spring.io/libs-milestone" }
      }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
@@ -16,7 +17,6 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot' 
-apply plugin: 'io.spring.dependency-management' 
 
 jar {
     baseName = 'spring-demo'
@@ -25,10 +25,10 @@ jar {
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+
 repositories {
     mavenCentral()
 }
-
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter")
@@ -54,6 +54,11 @@ dependencies {
     compile("org.springframework.data:spring-data-redis:1.4.1.RELEASE")
     compile("redis.clients:jedis:2.4.1")
 
+    //  face book
+    compile("org.springframework.social:spring-social-facebook")
+
+	//	mahout
+	compile("org.apache.mahout:mahout-core:0.9")
     
     //	aws
     //'org.springframework.cloud:spring-cloud-starter:1.0.1.RELEASE'こんなんもあるな

@@ -10,4 +10,7 @@ public class Status {
 	public Status(String status) {
 		this.status = status;
 	}
+	public Status(Boolean status) {
+		this.status = (status==true)?"OK":"NG";
+	}
 }
