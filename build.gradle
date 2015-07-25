@@ -33,19 +33,21 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter")
     compile("org.springframework.boot:spring-boot-starter-parent")
-    compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-test")
+    // web
+    compile("org.springframework.boot:spring-boot-starter-web")
+    // batch
+    compile("org.springframework.boot:spring-boot-starter-batch")
     
-    // template
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     // mongo
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     compile("org.mongodb:mongo-java-driver")
-    // batch
-    compile("org.springframework.boot:spring-boot-starter-batch")
+    
     // lombok
     compile("org.projectlombok:lombok:1.16.4")
+    // template
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     
     //	session
     compile("org.springframework.session:spring-session:1.0.1.RELEASE")

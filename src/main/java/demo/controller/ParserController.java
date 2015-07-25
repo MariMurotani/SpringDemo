@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -25,38 +26,34 @@ import edu.stanford.nlp.util.CoreMap;
 @RequestMapping("/parse")
 public class ParserController {
 
-	@RequestMapping(method=RequestMethod.GET)
+	/**
+	 * http://localhost:8080/parse/index.html
+	 * */
+	@RequestMapping(value="index",method=RequestMethod.GET)
     public String index(Model model) {
-        return "index";
-    }
+		model.addAttribute("tree", "");
+		   
+		return "parse/index";
+	}
 	
-	@RequestMapping(value="doParse",method=RequestMethod.GET)
-	public void doParse(){
-	    /*StanfordCoreNLP pipeline = new StanfordCoreNLP();
+	@RequestMapping(value="doParse",method=RequestMethod.POST)
+	public String doParse(@RequestParam(value="text", required=true) String value,Model model){
+		model.addAttribute("tree", "");
+		
+		StanfordCoreNLP pipeline = new StanfordCoreNLP();
 	    Annotation annotation;
-	    if (args.length > 0) {
-	      annotation = new Annotation(IOUtils.slurpFileNoExceptions(args[0]));
-	    } else {
-	      annotation = new Annotation("Kosgi Santosh sent an email to Stanford University. He didn't get a reply.");
-	    }
-
+	    annotation = new Annotation(value.trim());
+	    
 	    pipeline.annotate(annotation);
-	    pipeline.prettyPrint(annotation, out);
-	    if (xmlOut != null) {
-	      pipeline.xmlPrint(annotation, xmlOut);
-	    }
+	    
 	    // An Annotation is a Map and you can get and use the various analyses individually.
 	    // For instance, this gets the parse tree of the first sentence in the text.
 	    List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 	    if (sentences != null && sentences.size() > 0) {
 	      CoreMap sentence = sentences.get(0);
 	      Tree tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
-	      out.println();
-	      out.println("The first sentence parsed is:");
-	      tree.pennPrint(out);
-	    }*/
-
-
-		
+		  model.addAttribute("tree", tree.pennString());
+	    }		
+		return "parse/index";
 	}
 }
