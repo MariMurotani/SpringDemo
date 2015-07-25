@@ -20,6 +20,10 @@ import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
 
+/*
+ * arg0
+ * /Users/murotanimari/Desktop/standford/stanford-parser-full-2015-04-20/data/english-onesent.txt
+ * */
 @EnableAutoConfiguration
 @EnableBatchProcessing
 @EnableConfigurationProperties
