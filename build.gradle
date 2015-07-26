@@ -5,6 +5,7 @@ buildscript {
     repositories {
        mavenCentral()
     maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+     maven { url "https://repo.spring.io/libs-milestone" }
      }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
@@ -16,36 +17,37 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot' 
-apply plugin: 'io.spring.dependency-management' 
 
 jar {
     baseName = 'spring-demo'
     version = '0.0.1-SNAPSHOT'
 }
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 
 repositories {
     mavenCentral()
 }
 
-
 dependencies {
     compile("org.springframework.boot:spring-boot-starter")
     compile("org.springframework.boot:spring-boot-starter-parent")
-    compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-test")
+    // web
+    compile("org.springframework.boot:spring-boot-starter-web")
+    // batch
+    compile("org.springframework.boot:spring-boot-starter-batch")
     
-    // template
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     // mongo
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     compile("org.mongodb:mongo-java-driver")
-    // batch
-    compile("org.springframework.boot:spring-boot-starter-batch")
+    
     // lombok
     compile("org.projectlombok:lombok:1.16.4")
+    // template
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     
     //	session
     compile("org.springframework.session:spring-session:1.0.1.RELEASE")
@@ -54,6 +56,16 @@ dependencies {
     compile("org.springframework.data:spring-data-redis:1.4.1.RELEASE")
     compile("redis.clients:jedis:2.4.1")
 
+    //  face book
+    compile("org.springframework.social:spring-social-facebook")
+	
+	//	standford
+	compile('edu.stanford.nlp:stanford-parser:3.5.2')
+	compile('edu.stanford.nlp:stanford-corenlp:3.5.2')
+	compile('edu.stanford.nlp:stanford-corenlp:3.5.2:models')
+	
+	//	mahout
+	compile("org.apache.mahout:mahout-core:0.9")
     
     //	aws
     //'org.springframework.cloud:spring-cloud-starter:1.0.1.RELEASE'こんなんもあるな
@@ -75,7 +87,7 @@ task wrapper(type: Wrapper) {
 eclipse {
     classpath {
          containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
     }
 }
 
