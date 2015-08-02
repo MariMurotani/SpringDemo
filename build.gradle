@@ -3,9 +3,9 @@ buildscript {
         springBootVersion = '1.2.3.RELEASE'
     }
     repositories {
-       mavenCentral()
-       maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
-		maven { url "https://repo.spring.io/libs-milestone" }
+      mavenCentral()
+      // maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+	//maven { url "https://repo.spring.io/libs-milestone" }
      }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
@@ -49,13 +49,6 @@ dependencies {
     // template change to use my thymleaf
     //compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-	// for this time , this referes local project
-	// org.thymeleaf:thymeleaf:2.1.4.RELEASE
-    compile('ognl:ognl:3.0.8');
-    compile('org.unbescape:unbescape:1.1.0.RELEASE')
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf:1.2.3.RELEASE');
-    compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.7');
-    
     //	session
     compile("org.springframework.session:spring-session:1.0.1.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-redis:1.2.4.RELEASE")
@@ -82,10 +75,22 @@ dependencies {
     //	security
 	//compile("org.springframework.boot:spring-boot-starter-security")
 
+    //  thymeleaf
+	// for this time , this referes local project
+	// org.thymeleaf:thymeleaf:2.1.4.RELEASE
+    compile('ognl:ognl:3.0.8');
+    compile('org.unbescape:unbescape:1.1.0.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf:1.2.3.RELEASE');
+    compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.7');
     
-   
-    testCompile("junit:junit")
+	testCompile("junit:junit")
 }
+
+configurations {
+    // org.thymeleaf:thymeleaf:2.1.4.RELEASE
+    all*.exclude group: 'org.thymeleaf', module: 'thymeleaf-spring4'
+}
+
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
