@@ -3,7 +3,8 @@
 	<name>SpringDemo</name>
 	<comment></comment>
 	<projects>
-		<project>MyThmleaf</project>
+		<project>thymleaf</project>
+		<project>thymleaf-spring4</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
