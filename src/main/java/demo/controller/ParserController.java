@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import utils.transition.EnableTransCheck;
+import utils.transition.ScreenTrans;
 import ch.qos.logback.core.Context;
 import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -27,6 +29,7 @@ import edu.stanford.nlp.util.CoreMap;
 @EnableConfigurationProperties
 @Controller
 @RequestMapping("/parse")
+@EnableTransCheck
 public class ParserController {
 	@Autowired
 	private ApplicationContext context;
@@ -34,13 +37,22 @@ public class ParserController {
 	/**
 	 * http://localhost:8080/parse/index.html
 	 * */
+	@ScreenTrans(usetoken=true)
 	@RequestMapping(value="index",method=RequestMethod.GET)
     public String index(Model model) {
 		model.addAttribute("tree", "");
-		   
+		  
+		/*dump("クラス", clazz.getDeclaredAnnotations());
+
+		Annotation[][] ma = ms[0].getParameterAnnotations();
+		dump("引数1", ma[0]);
+		dump("引数2", ma[1]);
+		*/
+		
 		return "parse/index";
 	}
 	
+	@ScreenTrans(referer="/parse/index")
 	@RequestMapping(value="doParse",method=RequestMethod.POST)
 	public String doParse(@RequestParam(value="text", required=true) String value,Model model){
 		model.addAttribute("tree", "");
@@ -63,4 +75,12 @@ public class ParserController {
 	    }		
 		return "parse/index";
 	}
+	
+	public static void dump(String message, Annotation[] as) {
+		System.out.println(message);
+		for (Annotation a : as) {
+			System.out.println(a);
+		}
+	}
+
 }
