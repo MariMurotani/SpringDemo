@@ -75,12 +75,12 @@ public class ITPlanController {
 		//Map<RequestMappingInfo, HandlerMethod> methods= mapping.getHandlerMethods();
 		String result = "sdfsafaf";
 		for (RequestMappingInfo element : requestMappingHandlerMapping.getHandlerMethods().keySet()) {
-			/*System.out.println("pettern: "+ element.getPatternsCondition());
+			System.out.println("pettern: "+ element.getPatternsCondition());
 			System.out.println("method: " + element.getMethodsCondition());
 			System.out.println("params:" + element.getParamsCondition());
 			System.out.println("consume:" + element.getConsumesCondition());
 			System.out.println("header:" + element.getHeadersCondition());
-			System.out.println("procedure:" + element.getProducesCondition());*/
+			System.out.println("procedure:" + element.getProducesCondition());
 			
 	    }
 		
