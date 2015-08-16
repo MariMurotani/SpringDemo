@@ -1,6 +1,10 @@
 package demo.libs;
 
+import java.io.PrintStream;
 import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import org.springframework.context.ApplicationContext;
 
@@ -11,13 +15,26 @@ import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
 
+@Getter
+@Setter
+public class EnglishParser extends Thread{
+private String text;
+private String reult;
 
-public class EnglishParser {
+public interface MyCallback {
+    void callbackCall(String text);
+}
+private MyCallback callback;
 
-	public String doParse(String value){
+
+	@Override
+	public synchronized void run() {
+		// TODO Auto-generated method stub
+		super.run();
+		
 		StanfordCoreNLP pipeline = new StanfordCoreNLP();
 		Annotation annotation;
-	    annotation = new Annotation(value.trim());
+	    annotation = new Annotation(text.trim());
 	    
 	    pipeline.annotate(annotation);
 	    
@@ -33,6 +50,7 @@ public class EnglishParser {
 	    if(tree != null){
 	    	result = tree.pennString();
 	    }
-	    return result;
+	    callback.callbackCall(result);
 	}
+
 }

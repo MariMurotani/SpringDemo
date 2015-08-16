@@ -12,6 +12,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ScreenTrans {
-	public String referer() default "*";
+	public String referer() default "";
 	public boolean usetoken() default false;
 }

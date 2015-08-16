@@ -40,8 +40,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		super.addInterceptors(registry);
 		registry.addInterceptor(new ControllerHandler());
-	    
-		TransactionInterceptor transactionInterceptor = new TransactionInterceptor();
+	    //TransactionInterceptor transactionInterceptor = new TransactionInterceptor();
 	}
 	
 	/*
