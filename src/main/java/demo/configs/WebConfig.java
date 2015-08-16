@@ -1,8 +1,10 @@
 package demo.configs;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,22 +22,18 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.web.servlet.support.RequestDataValueProcessor;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
-import utils.transition.*;
-import demo.webmvc.MyResolver;
+import demo.controller.ControllerHandler;
+import demo.thymeleaf.ThymeleafDialect;
 
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-	@Bean
-	public MyTestBean myTestBean(){
-		return new MyTestBean();
-	}
-	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		super.addInterceptors(registry);
@@ -43,6 +41,40 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	    //TransactionInterceptor transactionInterceptor = new TransactionInterceptor();
 	}
 	
+	@Bean
+	public SpringTemplateEngine getTemplateEngine(){
+		SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
+		/*
+		Properties properties = new Properties();
+		properties.put("templateResolver",TemplateResolver.class);
+		
+		Set setA = new HashSet();
+		setA.add(ThymeleafDialect.class);
+		properties.put("additionalDialects", setA);
+		*/
+		springTemplateEngine.addTemplateResolver(new TemplateResolver());
+		springTemplateEngine.addDialect(new ThymeleafDialect());
+		return null;
+		
+	}
+	/**
+	 * 
+	<bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
+	  <property name="templateResolver" ref="templateResolver" />
+	  <property name="additionalDialects">
+	    <set>
+	      <bean class="thymeleafexamples.sayhello.dialect.HelloDialect"/>
+	    </set>
+	  </property>
+	</bean>
+	 * */
+	
+	
+	/*<bean name="requestDataValueProcessor"
+	          class="net.example.requestdata.processor.MyRequestDataValueProcessor" />
+	*/
+	
+
 	/*
 	 * 
 	 * 
