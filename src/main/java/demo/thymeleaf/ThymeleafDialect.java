@@ -27,8 +27,8 @@ public class ThymeleafDialect extends AbstractXHTMLEnabledDialect {
 	//
 	@Override
     public Set<IProcessor> getProcessors() {
-		final Set<IProcessor> processors = new LinkedHashSet<IProcessor>(35, 1.0f);
-        processors.add(new FormProcessor());
+		final Set<IProcessor> processors = new LinkedHashSet<IProcessor>();
+        processors.add(new demo.thymeleaf.FormProcessor());
         
         return new LinkedHashSet<IProcessor>(processors);
         

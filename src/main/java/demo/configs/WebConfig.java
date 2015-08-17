@@ -50,7 +50,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public ThymeleafViewResolver getTemplateEngine(){
 		ServletContextTemplateResolver servletContextTemplateResolver = new ServletContextTemplateResolver();
-        servletContextTemplateResolver.setPrefix("/WEB-INF/templates/");
+        servletContextTemplateResolver.setPrefix("classpath:/templates/");
         servletContextTemplateResolver.setSuffix(".html");
         servletContextTemplateResolver.setTemplateMode("HTML5");
         servletContextTemplateResolver.setCharacterEncoding("UTF-8");
@@ -60,7 +60,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.setTemplateResolver(servletContextTemplateResolver);
         springTemplateEngine.addDialect(new ThymeleafDialect());
-        //springTemplateEngine.addDialect(new StandardDialect());
+        springTemplateEngine.addDialect(new StandardDialect());
         
         ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
         thymeleafViewResolver.setCharacterEncoding("utf-8");
