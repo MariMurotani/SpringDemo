@@ -10,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.convert.Property;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
+import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -24,6 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.support.RequestDataValueProcessor;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.standard.StandardDialect;
@@ -33,6 +37,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 import demo.controller.ControllerHandler;
 import demo.thymeleaf.ThymeleafDialect;
 
+//@ImportResource("classpath:thymeleaf.xml")
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
@@ -50,18 +55,52 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         servletContextTemplateResolver.setTemplateMode("HTML5");
         servletContextTemplateResolver.setCharacterEncoding("UTF-8");
         servletContextTemplateResolver.setCacheable(true);
+        servletContextTemplateResolver.setOrder(1);
+        
+        SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
+        springTemplateEngine.setTemplateResolver(servletContextTemplateResolver);
+        springTemplateEngine.addDialect(new ThymeleafDialect());
+        //springTemplateEngine.addDialect(new StandardDialect());
+        
+        ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+        thymeleafViewResolver.setCharacterEncoding("utf-8");
+        thymeleafViewResolver.setTemplateEngine(springTemplateEngine);
+        thymeleafViewResolver.setOrder(2);
+        
+        return thymeleafViewResolver;
+	}
+
+	
+	/*
+	@Bean
+	public ViewResolver getTemplateEngine(ContentNegotiationManager manager){
+		ServletContextTemplateResolver servletContextTemplateResolver = new ServletContextTemplateResolver();
+        servletContextTemplateResolver.setPrefix("/WEB-INF/templates/");
+        servletContextTemplateResolver.setSuffix(".html");
+        servletContextTemplateResolver.setTemplateMode("HTML5");
+        servletContextTemplateResolver.setCharacterEncoding("UTF-8");
+        //servletContextTemplateResolver.setCacheable(true);
  
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.setTemplateResolver(servletContextTemplateResolver);
         springTemplateEngine.addDialect(new ThymeleafDialect());
-        springTemplateEngine.addDialect(new StandardDialect());
+        //springTemplateEngine.addDialect(new StandardDialect());
         ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
         thymeleafViewResolver.setCharacterEncoding("utf-8");
         thymeleafViewResolver.setTemplateEngine(springTemplateEngine);
+        thymeleafViewResolver.setOrder(2);
+        
+        ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
+        resolver.setContentNegotiationManager(manager);
+        
+        List<ViewResolver> resolvers = new ArrayList<ViewResolver>();
+        resolvers.add(thymeleafViewResolver);
  
-        return thymeleafViewResolver;
-	}
-
+        resolver.setViewResolvers(resolvers);
+        return resolver;
+	}*/
+	
+	
 	/*
 	 * 
 	 * 

@@ -2,11 +2,14 @@ package demo.thymeleaf;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
-
+import org.thymeleaf.dialect.AbstractXHTMLEnabledDialect;
 import org.thymeleaf.processor.IProcessor;
-import org.thymeleaf.standard.StandardDialect;
 
-public class ThymeleafDialect extends StandardDialect {
+/*
+ * http://www.thymeleaf.org/doc/articles/sayhelloextendingthymeleaf5minutes.html
+ */
+public class ThymeleafDialect extends AbstractXHTMLEnabledDialect {
+	public static final String PREFIX = "form";
 
 	
 	public ThymeleafDialect() {
@@ -14,7 +17,12 @@ public class ThymeleafDialect extends StandardDialect {
 		// TODO Auto-generated constructor stub
 	}
 	
-	//
+	@Override
+	public String getPrefix() {
+		// TODO Auto-generated method stub
+		return PREFIX;
+	}
+	
 	// The processors.
 	//
 	@Override
