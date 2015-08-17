@@ -70,7 +70,7 @@ public class ParserController {
 			mp.start();
 			
 	        try {
-				for (int i = 0; i < 20; i++) {
+				for (int i = 0; i < 30; i++) {
 		            //Pause for 0.3 seconds
 					Thread.sleep(100);
 		            if(resultValue.equals("") == false){
@@ -83,7 +83,7 @@ public class ParserController {
 				e.printStackTrace();
 			}
 		//}
-		return value;
+		return "parse/timeout";
 	}
 	
 	@RequestMapping(value="test",method=RequestMethod.POST)

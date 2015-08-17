@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import org.springframework.web.servlet.support.RequestDataValueProcessor;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.standard.StandardDialect;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
@@ -38,42 +40,27 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		super.addInterceptors(registry);
 		registry.addInterceptor(new ControllerHandler());
-	    //TransactionInterceptor transactionInterceptor = new TransactionInterceptor();
 	}
 	
 	@Bean
-	public SpringTemplateEngine getTemplateEngine(){
-		SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
-		/*
-		Properties properties = new Properties();
-		properties.put("templateResolver",TemplateResolver.class);
-		
-		Set setA = new HashSet();
-		setA.add(ThymeleafDialect.class);
-		properties.put("additionalDialects", setA);
-		*/
-		springTemplateEngine.addTemplateResolver(new TemplateResolver());
-		springTemplateEngine.addDialect(new ThymeleafDialect());
-		return null;
-		
+	public ThymeleafViewResolver getTemplateEngine(){
+		ServletContextTemplateResolver servletContextTemplateResolver = new ServletContextTemplateResolver();
+        servletContextTemplateResolver.setPrefix("/WEB-INF/templates/");
+        servletContextTemplateResolver.setSuffix(".html");
+        servletContextTemplateResolver.setTemplateMode("HTML5");
+        servletContextTemplateResolver.setCharacterEncoding("UTF-8");
+        servletContextTemplateResolver.setCacheable(true);
+ 
+        SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
+        springTemplateEngine.setTemplateResolver(servletContextTemplateResolver);
+        springTemplateEngine.addDialect(new ThymeleafDialect());
+        springTemplateEngine.addDialect(new StandardDialect());
+        ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+        thymeleafViewResolver.setCharacterEncoding("utf-8");
+        thymeleafViewResolver.setTemplateEngine(springTemplateEngine);
+ 
+        return thymeleafViewResolver;
 	}
-	/**
-	 * 
-	<bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
-	  <property name="templateResolver" ref="templateResolver" />
-	  <property name="additionalDialects">
-	    <set>
-	      <bean class="thymeleafexamples.sayhello.dialect.HelloDialect"/>
-	    </set>
-	  </property>
-	</bean>
-	 * */
-	
-	
-	/*<bean name="requestDataValueProcessor"
-	          class="net.example.requestdata.processor.MyRequestDataValueProcessor" />
-	*/
-	
 
 	/*
 	 * 

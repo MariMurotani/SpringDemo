@@ -13,19 +13,13 @@ public class ThymeleafDialect extends StandardDialect {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public String getPrefix() {
-		// TODO Auto-generated method stub
-		return "hello";
-	}
 	
 	//
 	// The processors.
 	//
 	@Override
     public Set<IProcessor> getProcessors() {
-        final Set<IProcessor> processors = new LinkedHashSet<IProcessor>(35, 1.0f);
+		final Set<IProcessor> processors = new LinkedHashSet<IProcessor>(35, 1.0f);
         processors.add(new FormProcessor());
         
         return new LinkedHashSet<IProcessor>(processors);
