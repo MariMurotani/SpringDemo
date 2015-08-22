@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.catalina.WebResource;
+import org.apache.catalina.WebResourceRoot;
+import org.apache.catalina.core.StandardContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -40,17 +44,17 @@ import demo.thymeleaf.ThymeleafDialect;
 //@ImportResource("classpath:thymeleaf.xml")
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
-
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		super.addInterceptors(registry);
 		registry.addInterceptor(new ControllerHandler());
 	}
 	
-	@Bean
+	/*@Bean
 	public ThymeleafViewResolver getTemplateEngine(){
 		ServletContextTemplateResolver servletContextTemplateResolver = new ServletContextTemplateResolver();
-        servletContextTemplateResolver.setPrefix("classpath:/templates/");
+		servletContextTemplateResolver.setPrefix("classpath:/templates/");
         servletContextTemplateResolver.setSuffix(".html");
         servletContextTemplateResolver.setTemplateMode("HTML5");
         servletContextTemplateResolver.setCharacterEncoding("UTF-8");
@@ -59,16 +63,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.setTemplateResolver(servletContextTemplateResolver);
-        springTemplateEngine.addDialect(new ThymeleafDialect());
-        springTemplateEngine.addDialect(new StandardDialect());
+        //springTemplateEngine.addDialect(new ThymeleafDialect());
+        //springTemplateEngine.addDialect(new StandardDialect());
         
         ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
         thymeleafViewResolver.setCharacterEncoding("utf-8");
         thymeleafViewResolver.setTemplateEngine(springTemplateEngine);
         thymeleafViewResolver.setOrder(2);
-        
+                
         return thymeleafViewResolver;
-	}
+	}*/
 
 	
 	/*
