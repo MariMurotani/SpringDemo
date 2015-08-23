@@ -1,15 +1,18 @@
 package demo.thymeleaf;
 
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
+
+import org.thymeleaf.dialect.AbstractDialect;
 import org.thymeleaf.dialect.AbstractXHTMLEnabledDialect;
 import org.thymeleaf.processor.IProcessor;
 
 /*
  * http://www.thymeleaf.org/doc/articles/sayhelloextendingthymeleaf5minutes.html
  */
-public class ThymeleafDialect extends AbstractXHTMLEnabledDialect {
-	public static final String PREFIX = "form";
+public class ThymeleafDialect extends AbstractDialect {
+	public static final String PREFIX = "";
 
 	
 	public ThymeleafDialect() {
@@ -23,6 +26,7 @@ public class ThymeleafDialect extends AbstractXHTMLEnabledDialect {
 		return PREFIX;
 	}
 	
+
 	// The processors.
 	//
 	@Override

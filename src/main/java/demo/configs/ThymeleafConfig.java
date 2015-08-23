@@ -1,13 +1,18 @@
 package demo.configs;
 
+import java.util.Locale;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -17,7 +22,7 @@ import org.thymeleaf.templateresolver.UrlTemplateResolver;
 import demo.thymeleaf.ThymeleafDialect;
 
 @Configuration
-public class ThymeleafConfiguration extends WebMvcConfigurerAdapter {
+public class ThymeleafConfig extends WebMvcConfigurerAdapter {
 		
 	
 		// - ClassLoaderTemplateResolver 
@@ -48,18 +53,6 @@ public class ThymeleafConfiguration extends WebMvcConfigurerAdapter {
 			return classLoaderTemplateResolver;
 		}
 	
-	
-		/*
-		 * Not working
-		 * @Bean
-	    public ServletContextTemplateResolver templateResolver() {
-	        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-	        templateResolver.setPrefix("/src/main/resources/templates/");
-	        templateResolver.setSuffix(".html");
-	        templateResolver.setTemplateMode("HTML5");
-	        templateResolver.setCacheable(false);
-	        return templateResolver;
-	    }*/
 	    
 	    @Bean
 	    public SpringTemplateEngine templateEngine() {
@@ -77,14 +70,34 @@ public class ThymeleafConfiguration extends WebMvcConfigurerAdapter {
 	        return viewResolver;
 	    }
 	    
-	    @Bean
-	    @Description("Spring message resolver")
-	    public ResourceBundleMessageSource messageSource() {  
-	        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();  
-	        messageSource.setBasename("i18n/messages");  
-	        
-	        return messageSource;  
-	    }
+	    //	realated locate
+	    @Override 
+        public void addInterceptors(InterceptorRegistry registry) { 
+                registry.addInterceptor(localeChangeInterceptor()); 
+        } 
+
+        @Bean 
+        public LocaleChangeInterceptor localeChangeInterceptor() { 
+                LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor(); 
+                localeChangeInterceptor.setParamName("language"); 
+                return localeChangeInterceptor; 
+        } 
+
+        @Bean 
+        public CookieLocaleResolver localeResolver() { 
+                CookieLocaleResolver localeResolver = new CookieLocaleResolver(); 
+                Locale defaultLocale = new Locale("en"); 
+                localeResolver.setDefaultLocale(defaultLocale); 
+                return localeResolver; 
+        } 
+
+        //	realated message
+        @Bean 
+        public ResourceBundleMessageSource messageSource() { 
+                ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource(); 
+                messageSource.setBasename("/com/thymeleaf/poc/resources/Messages"); 
+                return messageSource; 
+        }
 	    
 	    @Override
 	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
