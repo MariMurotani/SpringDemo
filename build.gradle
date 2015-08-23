@@ -73,8 +73,8 @@ dependencies {
     //compile("org.springframework.cloud:spring-cloud-aws-autoconfigure:1.0.1.RELEASE")
     
     //	security
-	//compile("org.springframework.boot:spring-boot-starter-security")
-
+	compile("org.springframework.boot:spring-boot-starter-security")
+	
     //  thymeleaf
 	// for this time , this referes local project
 	// org.thymeleaf:thymeleaf:2.1.4.RELEASE

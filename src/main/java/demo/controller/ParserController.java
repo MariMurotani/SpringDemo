@@ -5,6 +5,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.management.MBeanServer;
 import javax.management.MBeanServerFactory;
 import javax.management.ObjectName;
@@ -58,7 +59,7 @@ public class ParserController {
 	String resultValue = "";
 	@ScreenTrans(usetoken=true)
 	@RequestMapping(value="index",method=RequestMethod.GET)
-    public String index(Model model) {
+	public String index(Model model) {
 		model.addAttribute("tree", "");
 		return "parse/index";
 	}
@@ -98,30 +99,8 @@ public class ParserController {
 		return "parse/timeout";
 	}
 	
-	@Autowired
-	ServletContext servletcontext;
-	
 	@RequestMapping(value="test",method=RequestMethod.GET)
 	public String doTest(){
-		
-		String path = "classpath:/templates/parse/index";
-		try {
-			URL webr = servletcontext.getResource(path);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		/*
-		StandardContext svcontext = servletcontext;
-		
-        WebResourceRoot resources = svcontext.getResources();
-        if (resources != null) {
-        	String path = "classpath:/templates/parse/index";
-        	WebResource webr = resources.getResource(path);
-            resources.getResource("classpath:/templates/parse/index").getInputStream();
-        }*/
 		return "parse/index";
 	}		
 }

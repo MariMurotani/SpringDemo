@@ -92,13 +92,6 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter {
                 return localeResolver; 
         } 
         
-        //	filter
-       /* @Bean
-        public CSRFFilter cSRFFilter(){
-			return new CSRFFilter();
-			//<bean id="blCsrfFilter" class="org.broadleafcommerce.common.security.handler.CsrfFilter" />
-			//<sec:custom-filter ref="blCsrfFilter" before="FORM_LOGIN_FILTER"/>
-        }*/
         
         //	realated message
         @Bean 

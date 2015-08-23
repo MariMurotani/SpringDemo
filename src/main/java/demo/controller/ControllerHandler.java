@@ -26,36 +26,28 @@ public class ControllerHandler implements HandlerInterceptor  {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
 		System.out.println("---Before Method Execution---");
-		//super.preHandle(request, response,handler);
 		
-		if(handler instanceof HandlerMethod){
+		/*if(handler instanceof HandlerMethod){
 			//	メソッドのアノテーション取得
 			HandlerMethod handlerMethod = (HandlerMethod)handler;
 			ScreenTrans screenTrans = handlerMethod.getMethodAnnotation(ScreenTrans.class);
 			
 			//	リファラー取得
-			String referer = request.getHeader("referer");
-			System.out.println("path= " + referer + " , patern=" + screenTrans.referer());
-			
-			if(!screenTrans.referer().equals("")){
-				Pattern p = Pattern.compile(screenTrans.referer().trim());
-				Matcher m = p.matcher(referer);
+			if(screenTrans  != null && screenTrans.referer() != null){
+				String referer = request.getHeader("referer");
+				System.out.println("path= " + referer + " , patern=" + screenTrans.referer());
 				
-				/*Pattern p = Pattern.compile(screenTrans.referer());
-				Matcher m = p.matcher(referer);
-				*/
-				//	マッチしない場合はエラー
-				if(m.find() == false){
-					throw new Exception("Path is different according to refer in ScreenTrans");
+				if(!screenTrans.referer().equals("")){
+					Pattern p = Pattern.compile(screenTrans.referer().trim());
+					Matcher m = p.matcher(referer);
+					
+					//	マッチしない場合はエラー
+					if(m.find() == false){
+						throw new Exception("Path is different according to refer in ScreenTrans");
+					}
 				}
 			}
-			
-			//	tokenチェック
-			if(screenTrans.usetoken()){
-				
-			}
-			
-		}
+		}*/
 
 		return true;
 	}
