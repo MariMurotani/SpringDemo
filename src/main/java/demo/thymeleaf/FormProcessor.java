@@ -16,13 +16,14 @@ import org.thymeleaf.processor.attr.AbstractAttrProcessor;
 import org.thymeleaf.processor.element.AbstractElementProcessor;
 import org.thymeleaf.spring4.naming.SpringContextVariableNames;
 
+import demo.libs.Encoder;
+
 
 public class FormProcessor extends AbstractElementProcessor {
-	static final String ELEMENT_NAME_FORM = "scrf";
+	static final String ELEMENT_NAME_FORM = "form";
 
 	public FormProcessor() {
-		super("form");
-		//super(ELEMENT_NAME_FORM);
+		super(ELEMENT_NAME_FORM);
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public class FormProcessor extends AbstractElementProcessor {
             try {
             	//CryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();  
             	//String hashedPassword = passwordEncoder.encode(password);  
-            	String csrfTokenName = "TOKEN_dsafsaf";
-                String csrfTokenValue = "TOKENTOKEN";
+            	String csrfTokenName = "TOKEN_" + Encoder.getRandomMd5();
+            	String csrfTokenValue = Encoder.getRandomMd5();
                 Element csrfNode = new Element("input");
                 csrfNode.setAttribute("type", "hidden");
                 csrfNode.setAttribute("name", csrfTokenName);

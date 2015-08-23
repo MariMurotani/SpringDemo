@@ -19,6 +19,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.UrlTemplateResolver;
 
+import demo.thymeleaf.CSRFFilter;
 import demo.thymeleaf.ThymeleafDialect;
 
 @Configuration
@@ -90,7 +91,15 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter {
                 localeResolver.setDefaultLocale(defaultLocale); 
                 return localeResolver; 
         } 
-
+        
+        //	filter
+       /* @Bean
+        public CSRFFilter cSRFFilter(){
+			return new CSRFFilter();
+			//<bean id="blCsrfFilter" class="org.broadleafcommerce.common.security.handler.CsrfFilter" />
+			//<sec:custom-filter ref="blCsrfFilter" before="FORM_LOGIN_FILTER"/>
+        }*/
+        
         //	realated message
         @Bean 
         public ResourceBundleMessageSource messageSource() { 
