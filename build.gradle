@@ -3,9 +3,9 @@ buildscript {
         springBootVersion = '1.2.3.RELEASE'
     }
     repositories {
-       mavenCentral()
-    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
-     maven { url "https://repo.spring.io/libs-milestone" }
+      mavenCentral()
+      // maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+	//maven { url "https://repo.spring.io/libs-milestone" }
      }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
@@ -22,8 +22,8 @@ jar {
     baseName = 'spring-demo'
     version = '0.0.1-SNAPSHOT'
 }
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 
 repositories {
@@ -46,9 +46,9 @@ dependencies {
     
     // lombok
     compile("org.projectlombok:lombok:1.16.4")
-    // template
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    
+    // template change to use my thymleaf
+    //compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+
     //	session
     compile("org.springframework.session:spring-session:1.0.1.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-redis:1.2.4.RELEASE")
@@ -73,12 +73,29 @@ dependencies {
     //compile("org.springframework.cloud:spring-cloud-aws-autoconfigure:1.0.1.RELEASE")
     
     //	security
-	//compile("org.springframework.boot:spring-boot-starter-security")
-
+	compile("org.springframework.boot:spring-boot-starter-security")
+	
+    //  thymeleaf
+	// for this time , this referes local project
+	// org.thymeleaf:thymeleaf:2.1.4.RELEASE
+    //compile('ognl:ognl:3.0.8');
+    //compile('org.unbescape:unbescape:1.1.0.RELEASE')
+    //compile('org.springframework.boot:spring-boot-starter-thymeleaf:1.2.3.RELEASE');
+    //compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.7');
     
-   
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf"){
+	    // this setting is for the local debugging thymeleaf
+	    exclude group: 'org.thymeleaf', module: 'thymeleaf-spring4'
+	    exclude group: 'org.thymeleaf', module: 'thymeleaf'
+    }
+    compile('org.unbescape:unbescape:1.1.1.RELEASE');
+    //compile('net.sourceforge.nekohtml:nekohtml:1.9.22')
     testCompile("junit:junit")
 }
+
+configurations {
+}
+
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
