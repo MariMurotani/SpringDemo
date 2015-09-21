@@ -26,15 +26,15 @@ public class MessageResolver implements MessageSource{
 	@Override
 	public String getMessage(String code, Object[] args, Locale locale) throws NoSuchMessageException {
 		// TODO Auto-generated method stub
-		String test = messageSource.getMessage(code,args,locale);
-		return test;
+		String sMess = messageSource.getMessage(code,args,locale);
+		return sMess;
 	}
 	
 	@Override
 	public String getMessage(MessageSourceResolvable resolvable, Locale locale) throws NoSuchMessageException {
 		// TODO Auto-generated method stub
-		System.out.println("get nessage here");
-		return null;
+		String sMess = messageSource.getMessage(resolvable,locale);
+		return sMess;
 	}
 	
 }
