@@ -21,6 +21,8 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -41,6 +43,9 @@ public class ParserController {
 	@Autowired
 	private ApplicationContext context;
 	
+	@Autowired
+    private MessageSource messageSource;
+	
 	/**
 	 * preExecuter in this class
 	 * */
@@ -50,7 +55,7 @@ public class ParserController {
 		 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	     dateFormat.setLenient(false);
 	     binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-	} 
+	 } 
 
 	
 	/**
@@ -60,6 +65,11 @@ public class ParserController {
 	@ScreenTrans(usetoken=true)
 	@RequestMapping(value="index",method=RequestMethod.GET)
 	public String index(Model model) {
+		System.out.println(LocaleContextHolder.getLocale());
+		String message = messageSource.getMessage("user.welcome",new String[]{"Mari"}, LocaleContextHolder.getLocale());
+		System.out.println(message);
+
+		model.addAttribute("userName","Mari");
 		model.addAttribute("tree", "");
 		return "parse/index";
 	}

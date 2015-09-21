@@ -2,10 +2,12 @@ package demo.configs;
 
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -71,8 +73,15 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter {
 	        return viewResolver;
 	    }
 	    
-	    //	realated locate
-	    @Override 
+	    /**
+         * locale settings
+         * */
+        @Value("${lang.default.lang}")
+		private String defLang;
+        @Value("${lang.default.locale}")
+		private String defLocale;
+
+        @Override 
         public void addInterceptors(InterceptorRegistry registry) { 
                 registry.addInterceptor(localeChangeInterceptor()); 
         } 
@@ -87,22 +96,24 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter {
         @Bean 
         public CookieLocaleResolver localeResolver() { 
                 CookieLocaleResolver localeResolver = new CookieLocaleResolver(); 
-                Locale defaultLocale = new Locale("en"); 
+                Locale defaultLocale = new Locale(defLang + "_" + defLocale); 
                 localeResolver.setDefaultLocale(defaultLocale); 
                 return localeResolver; 
         } 
         
-        
-        //	realated message
         @Bean 
-        public ResourceBundleMessageSource messageSource() { 
-                ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource(); 
-                messageSource.setBasename("/com/thymeleaf/poc/resources/Messages"); 
+        public ReloadableResourceBundleMessageSource messageSource() { 
+        	ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource(); 
+                messageSource.setBasename("classpath:messages/messages"); 
                 return messageSource; 
         }
-	    
-	    @Override
+        
+        /**
+         * resource settings
+         * */
+        @Override
 	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	        registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
 	    }
+	    
 }
