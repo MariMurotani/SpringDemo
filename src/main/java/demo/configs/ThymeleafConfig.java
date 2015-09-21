@@ -4,24 +4,21 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.thymeleaf.messageresolver.IMessageResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-import org.thymeleaf.templateresolver.UrlTemplateResolver;
 
-import demo.thymeleaf.CSRFFilter;
+import demo.thymeleaf.MyMessageResolver;
 import demo.thymeleaf.ThymeleafDialect;
 
 @Configuration
@@ -58,10 +55,13 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter {
 	
 	    
 	    @Bean
+	    @DependsOn("messageSource")
 	    public SpringTemplateEngine templateEngine() {
 	        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 	        templateEngine.setTemplateResolver(templateResolver());
 	        templateEngine.addDialect(new ThymeleafDialect());
+	        templateEngine.setMessageResolver((IMessageResolver) new MyMessageResolver());
+	        
 	        return templateEngine;
 	    }
 	    
@@ -104,8 +104,8 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter {
         @Bean 
         public ReloadableResourceBundleMessageSource messageSource() { 
         	ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource(); 
-                messageSource.setBasename("classpath:messages/messages"); 
-                return messageSource; 
+            messageSource.setBasename("classpath:messages/messages"); 
+            return messageSource; 
         }
         
         /**
