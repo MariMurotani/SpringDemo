@@ -38,7 +38,6 @@ public class SpringMongoConfig extends AbstractMongoConfiguration {
 	public MongoMappingContext mongoMappingContext()
 			throws ClassNotFoundException {
 		// TODO Auto-generated method stub
-		mongoHost2= mongoHost;
 		return super.mongoMappingContext();
 	}
 

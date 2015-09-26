@@ -1,11 +1,13 @@
 <html><body>
 
-This title if from DB.<br></br>
+This is from DB.<br></br>
 <div th:text="#{parse.index.titile}"></div>
-<br></br>
-This title if from messages.<br></br>
-<div th:text="#{user.welcome(${userName})}"></div>
 
+This is from files.<br></br>
+<div th:text="#{user.welcome (${userName})}"></div>
+
+This is from template.<br></br>
+USERNAME: <span th:text="${userName}"></span>
 
 <form action="doParse" method="POST">
 <textarea rows="20" cols="100" name="text">

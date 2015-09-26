@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import demo.annotation.ScreenTrans;
 import demo.libs.EnglishParser;
 import demo.libs.EnglishParser.MyCallback;
+import demo.mongo.service.MyMessageService;
 
 @EnableAutoConfiguration
 @EnableConfigurationProperties
@@ -30,8 +31,8 @@ public class ParserController {
 	@Autowired
 	private ApplicationContext context;
 	
-	@Autowired
-    private MessageSource messageSource;
+	//@Autowired
+	//private MyMessageSource messageService;
 	
 	/**
 	 * preExecuter in this class
@@ -53,8 +54,9 @@ public class ParserController {
 	@RequestMapping(value="index",method=RequestMethod.GET)
 	public String index(Model model) {
 		System.out.println(LocaleContextHolder.getLocale());
-		String message = messageSource.getMessage("user.welcome",new String[]{"Mari"}, LocaleContextHolder.getLocale());
-		System.out.println(message);
+		
+		//String message = messageService.getMessage("user.welcome",new String[]{"Mari"}, LocaleContextHolder.getLocale());
+		//System.out.println(message);
 
 		model.addAttribute("userName","Mari");
 		model.addAttribute("tree", "");
