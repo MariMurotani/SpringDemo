@@ -1,21 +1,8 @@
 package demo.controller;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.annotation.Resource;
-import javax.management.MBeanServer;
-import javax.management.MBeanServerFactory;
-import javax.management.ObjectName;
-import javax.servlet.ServletContext;
-
-import org.apache.catalina.Server;
-import org.apache.catalina.WebResource;
-import org.apache.catalina.WebResourceRoot;
-import org.apache.catalina.core.StandardContext;
-import org.apache.catalina.core.StandardEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -34,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import demo.annotation.ScreenTrans;
 import demo.libs.EnglishParser;
 import demo.libs.EnglishParser.MyCallback;
+import demo.mongo.service.MyMessageService;
 
 @EnableAutoConfiguration
 @EnableConfigurationProperties
@@ -43,8 +31,8 @@ public class ParserController {
 	@Autowired
 	private ApplicationContext context;
 	
-	@Autowired
-    private MessageSource messageSource;
+	//@Autowired
+	//private MyMessageSource messageService;
 	
 	/**
 	 * preExecuter in this class
@@ -66,10 +54,9 @@ public class ParserController {
 	@RequestMapping(value="index",method=RequestMethod.GET)
 	public String index(Model model) {
 		System.out.println(LocaleContextHolder.getLocale());
-		String message = messageSource.getMessage("user.welcome",new String[]{"Mari"}, LocaleContextHolder.getLocale());
-		System.out.println(message);
-
-		model.addAttribute("userName","Mari");
+		
+		model.addAttribute("userName",new String[]{"Mari-san","Yoshi-san"});
+		model.addAttribute("userAttiribute","PratinumUser");
 		model.addAttribute("tree", "");
 		return "parse/index";
 	}

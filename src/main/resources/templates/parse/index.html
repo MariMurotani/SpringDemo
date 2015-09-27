@@ -1,6 +1,10 @@
 <html><body>
 
-<div th:text="#{user.welcome(${userName})}"></div>
+This is from DB.<br></br>
+<div th:text="#{parse.index.titile(${userName})}"></div>
+
+This is from files.<br></br>
+<div th:text="#{user.welcome(${userAttiribute})}"></div>
 
 <form action="doParse" method="POST">
 <textarea rows="20" cols="100" name="text">

@@ -50,19 +50,6 @@ public class FormProcessor extends AbstractElementProcessor {
 		return super.getMatcher();
 	}
 	
-	/*@Override
-	protected ProcessorResult processAttribute(Arguments arguments, Element element, String attributeName) {
-		if (element.getNormalizedName() != "form") {
-			throw new TemplateProcessingException("Form annontation must be used on a form element");
-		}
-
-		element.removeAttribute(attributeName);
-		addExtraHiddenFields(arguments, element);
-
-		return ProcessorResult.OK;
-	}
-	*/
-	
 	private void addCSRFHiddenFields(Arguments arguments, Element element) {
 		System.out.println("addExtraHiddenFields");
 		//element.getAttributeFromNormalizedName("form");
@@ -90,7 +77,6 @@ public class FormProcessor extends AbstractElementProcessor {
             }
         }
 		
-		//return element.cloneElementNodeWithNewName(element.getParent(),"form",true);
 	}
 
 
