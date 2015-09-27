@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.stereotype.Component;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -25,49 +25,58 @@ import demo.thymeleaf.ThymeleafDialect;
 
 @Configuration
 public class ThymeleafConfig extends WebMvcConfigurerAdapter {
-    /**
-     * locale settings
-     * */
-    @Value("${lang.default.lang}")
-	private String defLang;
-    @Value("${lang.default.locale}")
-	private String defLocale;
-
-    @Override 
-    public void addInterceptors(InterceptorRegistry registry) { 
-            registry.addInterceptor(localeChangeInterceptor()); 
-    } 
-
-    @Bean 
-    public LocaleChangeInterceptor localeChangeInterceptor() { 
-            LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor(); 
-            localeChangeInterceptor.setParamName("language"); 
-            return localeChangeInterceptor; 
-    } 
-
-    @Bean 
-    public CookieLocaleResolver localeResolver() { 
-            CookieLocaleResolver localeResolver = new CookieLocaleResolver(); 
-            Locale defaultLocale = new Locale(defLang + "_" + defLocale); 
-            localeResolver.setDefaultLocale(defaultLocale); 
-            return localeResolver; 
-    } 
+		@Autowired
+	    private ApplicationContext context;
+	
+	    @Value("${lang.default.lang}")
+		private String defLang;
+	    @Value("${lang.default.locale}")
+		private String defLocale;
+	
+	    
+	    @Override 
+	    public void addInterceptors(InterceptorRegistry registry) { 
+	            registry.addInterceptor(localeChangeInterceptor()); 
+	    } 
+	
+	    @Bean 
+	    public LocaleChangeInterceptor localeChangeInterceptor() { 
+	            LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor(); 
+	            localeChangeInterceptor.setParamName("language"); 
+	            return localeChangeInterceptor; 
+	    } 
+	
+	    @Bean 
+	    public CookieLocaleResolver localeResolver() { 
+	            CookieLocaleResolver localeResolver = new CookieLocaleResolver(); 
+	            Locale defaultLocale = new Locale(defLang + "_" + defLocale); 
+	            localeResolver.setDefaultLocale(defaultLocale); 
+	            return localeResolver; 
+	    }
+	    
+	    /*@Bean
+	    public ResourceBundleMessageSource messageSource() { 
+	            ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource(); 
+	            messageSource.setBasename("classpath:messages/messages"); 
+	            return messageSource; 
+	    }*/
+	    
+	    @Order(1)
+	    @Bean 
+	    public ReloadableResourceBundleMessageSource messageSource() { 
+	    	ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource(); 
+	        messageSource.setBasename("classpath:messages/messages"); 
+	        return messageSource; 
+	    }
+	    
+	    /**
+	     * resource settings
+	     * */
+	    @Override
+	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	        registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
+	    }
     
-    @Bean 
-    public ReloadableResourceBundleMessageSource messageSource() { 
-    	ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource(); 
-        messageSource.setBasename("classpath:messages/messages"); 
-        return messageSource; 
-    }
-    
-    /**
-     * resource settings
-     * */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
-    }
-    	
 	
 		// - ClassLoaderTemplateResolver 
 		// - FileTemplateResolver 
@@ -94,29 +103,27 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter {
 			classLoaderTemplateResolver.setSuffix(".html");
 			classLoaderTemplateResolver.setTemplateMode("HTML5");
 			classLoaderTemplateResolver.setCacheable(false);
+			//classLoaderTemplateResolver.setResourceResolver(resourceResolver);
 			return classLoaderTemplateResolver;
 		}
 	
-		@Autowired
-		private ApplicationContext context;
-	    
-	    @Bean
+        @Bean
 	    public SpringTemplateEngine templateEngine() {
 	        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 	        templateEngine.setTemplateResolver(templateResolver());
-	        //templateEngine.setMessageResolver((IMessageResolver) context.getBean(MyMessageResolver.class));
 	        templateEngine.addDialect(new ThymeleafDialect());
-	        //templateEngine.addDialect(context.getBean(ThymeleafDialect.class));
+	        templateEngine.setMessageResolver((IMessageResolver) context.getBean(MyMessageResolver.class));
 	        return templateEngine;
 	    }
 	    
-	    @Bean
+        @Order(2)
+        @Bean
 	    public ThymeleafViewResolver viewResolver() {
 	        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 	        viewResolver.setTemplateEngine(templateEngine());
-	        
 	        return viewResolver;
 	    }
 	    
-	
+
+
 }

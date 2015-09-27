@@ -55,10 +55,8 @@ public class ParserController {
 	public String index(Model model) {
 		System.out.println(LocaleContextHolder.getLocale());
 		
-		//String message = messageService.getMessage("user.welcome",new String[]{"Mari"}, LocaleContextHolder.getLocale());
-		//System.out.println(message);
-
-		model.addAttribute("userName","Mari");
+		model.addAttribute("userName",new String[]{"Mari-san","Yoshi-san"});
+		model.addAttribute("userAttiribute","PratinumUser");
 		model.addAttribute("tree", "");
 		return "parse/index";
 	}
