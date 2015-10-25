@@ -65,6 +65,8 @@ public class ParserController {
 	@ScreenTrans(referer="/parse/index|/parse/doParse")
 	@RequestMapping(value="doParse",method=RequestMethod.POST)
 	public String doParse(@RequestParam(value="text", required=true) String value,Model model){
+		model.addAttribute("userName","Santa-san");
+		model.addAttribute("userAttiribute","PratinumUser");
 		model.addAttribute("tree", "");
 		
 		//synchronized(this){
@@ -80,7 +82,7 @@ public class ParserController {
 			mp.start();
 			
 	        try {
-				for (int i = 0; i < 30; i++) {
+				for (int i = 0; i < 60; i++) {
 		            //Pause for 0.3 seconds
 					Thread.sleep(100);
 		            if(resultValue.equals("") == false){

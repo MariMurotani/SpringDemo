@@ -80,9 +80,11 @@ public class ControllerHandler implements HandlerInterceptor  {
 		    
 		    HttpSession httpSession = httpRequest.getSession();
 		    Object object = httpSession.getAttribute(CSRFKey);
-		    System.out.println(object.toString() +"=="+ CSRFVal);
-		    if(object.toString().equals(CSRFVal)){
+		    if(httpSession != null & object != null){
+		    	System.out.println(object.toString() +"=="+ CSRFVal);
+			    if(object.toString().equals(CSRFVal)){
 		    	error = false;
+			    }
 		    }
 			
 		}
