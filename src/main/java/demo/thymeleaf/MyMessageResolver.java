@@ -38,7 +38,7 @@ import org.thymeleaf.spring4.context.SpringWebContext;
 import org.thymeleaf.standard.StandardMessageResolutionUtils;
 
 import demo.configs.ConstError;
-import demo.mongo.service.MyMessageService;
+import demo.service.MyMessageService;
 
 
 @Component

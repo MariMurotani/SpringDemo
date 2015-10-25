@@ -1,4 +1,4 @@
-package demo.mongo.service;
+package demo.service;
 
 import java.util.Date;
 import java.util.List;
@@ -15,10 +15,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
-import demo.mongo.model.CMS;
-import demo.mongo.model.CMSData;
-import demo.mongo.model.PathList;
-import demo.mongo.model.User;
+import demo.model.CMS;
+import demo.model.CMSData;
+import demo.model.PathList;
+import demo.model.User;
 
 @Service
 public class CMSService extends ServiceBase{

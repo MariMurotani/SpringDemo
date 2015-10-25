@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import demo.dto.AddedKey;
 import demo.dto.Status;
-import demo.mongo.model.CMS;
-import demo.mongo.model.PathList;
-import demo.mongo.service.CMSService;
-import demo.mongo.service.UserService;
+import demo.model.CMS;
+import demo.model.PathList;
+import demo.service.CMSService;
+import demo.service.UserService;
 
 @EnableAutoConfiguration
 @EnableConfigurationProperties

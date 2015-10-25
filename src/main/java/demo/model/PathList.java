@@ -1,4 +1,4 @@
-package demo.mongo.model;
+package demo.model;
 
 import lombok.Getter;
 import lombok.Setter;

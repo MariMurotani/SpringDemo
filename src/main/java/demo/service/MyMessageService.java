@@ -1,4 +1,4 @@
-package demo.mongo.service;
+package demo.service;
 
 import java.util.Iterator;
 import java.util.List;
@@ -23,8 +23,8 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import demo.configs.SpringMongoConfig;
-import demo.mongo.model.Message;
-import demo.mongo.model.User;
+import demo.model.Message;
+import demo.model.User;
 
 @Service
 public class MyMessageService extends ServiceBase {

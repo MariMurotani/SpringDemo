@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import demo.annotation.ScreenTrans;
 import demo.libs.EnglishParser;
 import demo.libs.EnglishParser.MyCallback;
-import demo.mongo.service.MyMessageService;
+import demo.service.MyMessageService;
 
 @EnableAutoConfiguration
 @EnableConfigurationProperties

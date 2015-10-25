@@ -8,7 +8,7 @@ import org.springframework.context.MessageSourceResolvable;
 import org.springframework.stereotype.Component;
 
 import demo.configs.ConstError;
-import demo.mongo.service.MyMessageService;
+import demo.service.MyMessageService;
 
 @Component
 public class MyMessageSource implements MessageSource{
