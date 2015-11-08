@@ -19,10 +19,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import demo.configs.MyRabbitConnectionFactory;
 import demo.service.Receiver;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class RabbitMQApplication implements CommandLineRunner {
 
 	final static String queueName = "spring-boot";

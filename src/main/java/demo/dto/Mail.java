@@ -1,4 +1,4 @@
-package demo.model;
+package demo.dto;
 
 import java.util.ArrayList;
 
