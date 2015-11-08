@@ -6,6 +6,7 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
@@ -16,9 +17,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import demo.configs.MyRabbitConnectionFactory;
 import demo.service.Receiver;
 
 @SpringBootApplication
@@ -50,7 +51,7 @@ public class RabbitMQApplication implements CommandLineRunner {
 	Binding binding(Queue queue, TopicExchange exchange) {
 		return BindingBuilder.bind(queue).to(exchange).with(queueName);
 	}
-
+	
 	@Bean
 	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
@@ -59,7 +60,15 @@ public class RabbitMQApplication implements CommandLineRunner {
 		container.setMessageListener(listenerAdapter);
 		return container;
 	}
+	
+	@Bean
+	CachingConnectionFactory rabbitConnectionFactory(){
+		CachingConnectionFactory rabicon = new CachingConnectionFactory();
+		rabicon.setHost("192.168.3.3");
+		return rabicon;
+	}
 
+	
     @Bean
     Receiver receiver() {
         return new Receiver();
