@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.util.List;
 
-import demo.mongo.model.User;
+import demo.model.User;
 
 
 

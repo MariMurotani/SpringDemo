@@ -38,7 +38,7 @@ import org.thymeleaf.spring4.context.SpringWebContext;
 import org.thymeleaf.standard.StandardMessageResolutionUtils;
 
 import demo.configs.ConstError;
-import demo.mongo.service.MyMessageService;
+import demo.service.MyMessageService;
 
 
 @Component
@@ -66,16 +66,17 @@ public class MyMessageResolver extends AbstractMessageResolver {//StandardMessag
 	public MessageResolution resolveMessage(Arguments arguments, String key,Object[] messageParameters) {
 		String sMess = this.messageSource.getMessage(key.toString(), null,LocaleContextHolder.getLocale());
 		//super.checkInitialized();
-		
-		if(!(messageParameters[0] instanceof String)){
-			
-			for(int i = 0; i < ((Object[])messageParameters[0]).length ; i++){
-				sMess = sMess.replace("{" +String.valueOf(i)+ "}",String.valueOf(((Object[])messageParameters[0])[i]));
-			}
-		}else{
-			for(int i = 0; i < messageParameters.length ; i++){
-				System.out.println(messageParameters[i]);
-				sMess = sMess.replace("{" +String.valueOf(i)+ "}",String.valueOf(messageParameters[i]));
+		if(messageParameters != null){
+			if(!(messageParameters[0] instanceof String)){
+				
+				for(int i = 0; i < ((Object[])messageParameters[0]).length ; i++){
+					sMess = sMess.replace("{" +String.valueOf(i)+ "}",String.valueOf(((Object[])messageParameters[0])[i]));
+				}
+			}else{
+				for(int i = 0; i < messageParameters.length ; i++){
+					System.out.println(messageParameters[i]);
+					sMess = sMess.replace("{" +String.valueOf(i)+ "}",String.valueOf(messageParameters[i]));
+				}
 			}
 		}
 		MessageResolution resolution = new MessageResolution(sMess);

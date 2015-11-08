@@ -80,9 +80,11 @@ public class ControllerHandler implements HandlerInterceptor  {
 		    
 		    HttpSession httpSession = httpRequest.getSession();
 		    Object object = httpSession.getAttribute(CSRFKey);
-		    System.out.println(object.toString() +"=="+ CSRFVal);
-		    if(object.toString().equals(CSRFVal)){
+		    if(httpSession != null & object != null){
+		    	System.out.println(object.toString() +"=="+ CSRFVal);
+			    if(object.toString().equals(CSRFVal)){
 		    	error = false;
+			    }
 		    }
 			
 		}
@@ -96,6 +98,9 @@ public class ControllerHandler implements HandlerInterceptor  {
 	@Override
 	public void postHandle(	HttpServletRequest request, HttpServletResponse response,
 			Object handler, ModelAndView modelAndView) throws Exception {
+			if(modelAndView == null){
+				return;
+			}
 			System.out.println("---method executed---");
 			
 			ModelMap modelmap = modelAndView.getModelMap();
