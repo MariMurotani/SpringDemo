@@ -1,7 +1,11 @@
 package demo.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -31,16 +35,24 @@ public class RabbitController {
 	RabbitTemplate rabbitTemplate;
 	
 	/**
-	 * curl -d to="muromari@com" text="1いいねしました" http://localhost:8080/rabiit/push
-	 * curl -d to="muromari@com" text="3写真アップしました" http://localhost:8080/rabiit/push
+	 * curl -d to="muromari@com" -d text="1いいねしました" http://localhost:8080/rabiit/push
+	 * curl -d to="muromari@com" -d text="3写真アップしました" http://localhost:8080/rabiit/push
 	 * */
 	@RequestMapping(value="/push",method=RequestMethod.POST)
     public @ResponseBody Status getAllPath(@RequestParam(value="to", required=true) String to,@RequestParam(value="text", defaultValue="") String text) {
+		ObjectMapper mapper = new ObjectMapper();
+		
 		Mail mail = new Mail();
 		mail.setToAddress(to);
 		mail.setStrContent(text);
 		
-		rabbitTemplate.convertAndSend(Const.RabbitMQMessageQue,mail);
+		try {
+			String jsonInString = mapper.writeValueAsString(mail);
+			rabbitTemplate.convertAndSend(Const.RabbitMQMessageQue,jsonInString);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 		return new Status("OK");
 		
 	}

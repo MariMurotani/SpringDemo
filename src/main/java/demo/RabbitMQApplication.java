@@ -1,7 +1,9 @@
 package demo;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -20,6 +22,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import demo.configs.Const;
+import demo.dto.Mail;
 import demo.service.Receiver;
 
 @SpringBootApplication
@@ -52,13 +55,16 @@ public class RabbitMQApplication implements CommandLineRunner {
 	}
 	
 	@Bean
-	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
+	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
 		container.setQueueNames(Const.RabbitMQMessageQue);
-		container.setMessageListener(listenerAdapter);
+		//container.setMessageListener(listenerAdapter);
 		return container;
 	}
+	
+	/*
+	For asyncronized receiving
 	
 	@Bean
     Receiver receiver() {
@@ -68,8 +74,8 @@ public class RabbitMQApplication implements CommandLineRunner {
 	@Bean
 	MessageListenerAdapter listenerAdapter(Receiver receiver) {
 		return new MessageListenerAdapter(receiver, "receiveMessage");
-	}
-
+	}*/
+	
     public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(RabbitMQApplication.class, args);
     }
@@ -77,11 +83,22 @@ public class RabbitMQApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Waiting five seconds...");
-        Thread.sleep(5000);
-        //System.out.println("Sending message...");
-        //rabbitTemplate.convertAndSend(Const.RabbitMQMessageQue, "Hello from RabbitMQ!");
-        receiver().getLatch().await(10000, TimeUnit.MILLISECONDS);
-        System.out.println("Waiting five seconds...");
-        ((ConfigurableApplicationContext)context).close();
+       
+        while(0 < 1){
+        	for(int i = 0 ; i < 5 ; i++){
+	        	String object = (String)rabbitTemplate.receiveAndConvert(Const.RabbitMQMessageQue);
+	        	if(object != null){
+	        		try{
+	        			System.out.println(new Date().toGMTString() + ": " + object);
+	        			ObjectMapper mapper = new ObjectMapper();
+	        			Mail mail = mapper.readValue(object, Mail.class);
+	        			System.out.println(mail.getToAddress() + " , " + mail.getStrContent());
+	        		}catch(Exception e){
+	        			System.out.println(e.getMessage());
+	        		}
+	        	}
+        	}
+        	Thread.sleep(10000);
+        }
     }
 }
