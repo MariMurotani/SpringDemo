@@ -16,8 +16,6 @@ import demo.service.Receiver;
 @Configuration
 public class RabbitMQConfig {
 
-	final static String queueName = "spring-boot";
-
 	/*@Bean
 	TopicExchange exchange() {
 		return new TopicExchange("spring-boot-exchange");
@@ -43,7 +41,7 @@ public class RabbitMQConfig {
 	SimpleMessageListenerContainer simpleMessage(ConnectionFactory connectionFactory) {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames(queueName);
+		container.setQueueNames(Const.RabbitMQMessageQue);
 		//container.setMessageListener(listenerAdapter);
 		return container;
 	}

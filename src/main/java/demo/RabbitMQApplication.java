@@ -19,13 +19,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import demo.configs.Const;
 import demo.service.Receiver;
 
-//@SpringBootApplication
+@SpringBootApplication
 public class RabbitMQApplication implements CommandLineRunner {
 
-	final static String queueName = "spring-boot";
-
+	
 	//@Autowired
 	//AnnotationConfigApplicationContext context;
 	
@@ -38,7 +38,7 @@ public class RabbitMQApplication implements CommandLineRunner {
 
 	@Bean
 	Queue queue() {
-		return new Queue(queueName, false);
+		return new Queue(Const.RabbitMQMessageQue, false);
 	}
 
 	@Bean
@@ -48,27 +48,19 @@ public class RabbitMQApplication implements CommandLineRunner {
 
 	@Bean
 	Binding binding(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(queueName);
+		return BindingBuilder.bind(queue).to(exchange).with(Const.RabbitMQMessageQue);
 	}
 	
 	@Bean
 	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames(queueName);
+		container.setQueueNames(Const.RabbitMQMessageQue);
 		container.setMessageListener(listenerAdapter);
 		return container;
 	}
 	
 	@Bean
-	CachingConnectionFactory rabbitConnectionFactory(){
-		CachingConnectionFactory rabicon = new CachingConnectionFactory();
-		rabicon.setHost("192.168.3.3");
-		return rabicon;
-	}
-
-	
-    @Bean
     Receiver receiver() {
         return new Receiver();
     }
@@ -86,9 +78,10 @@ public class RabbitMQApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Waiting five seconds...");
         Thread.sleep(5000);
-        System.out.println("Sending message...");
-        rabbitTemplate.convertAndSend(queueName, "Hello from RabbitMQ!");
+        //System.out.println("Sending message...");
+        //rabbitTemplate.convertAndSend(Const.RabbitMQMessageQue, "Hello from RabbitMQ!");
         receiver().getLatch().await(10000, TimeUnit.MILLISECONDS);
+        System.out.println("Waiting five seconds...");
         ((ConfigurableApplicationContext)context).close();
     }
 }
