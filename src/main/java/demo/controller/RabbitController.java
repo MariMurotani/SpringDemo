@@ -1,10 +1,6 @@
 package demo.controller;
 
-import java.io.IOException;
-import java.util.List;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +8,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import demo.configs.Const;
 import demo.dto.Mail;
 import demo.dto.Status;
-import demo.model.CMS;
 
 @EnableAutoConfiguration
 @EnableConfigurationProperties
