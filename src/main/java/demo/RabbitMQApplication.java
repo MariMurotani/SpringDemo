@@ -1,7 +1,6 @@
 package demo;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.amqp.core.Binding;
@@ -12,26 +11,25 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 import demo.configs.Const;
 import demo.dto.Mail;
-import demo.service.Receiver;
 
-@SpringBootApplication
+@EnableAutoConfiguration
+@EnableBatchProcessing
+@EnableConfigurationProperties
 public class RabbitMQApplication implements CommandLineRunner {
 
-	
-	//@Autowired
-	//AnnotationConfigApplicationContext context;
-	
 	@Autowired
 	ApplicationContext context;
 	
@@ -53,7 +51,19 @@ public class RabbitMQApplication implements CommandLineRunner {
 	Binding binding(Queue queue, TopicExchange exchange) {
 		return BindingBuilder.bind(queue).to(exchange).with(Const.RabbitMQMessageQue);
 	}
-	
+
+	@Bean
+	CachingConnectionFactory rabbitConnectionFactory(){
+		CachingConnectionFactory rabicon = new CachingConnectionFactory();
+		//amqp.connect('amqp://admin:admin@192.168.3.3:5672/',
+		rabicon.setHost("192.168.3.3");
+		rabicon.setUsername("admin");
+		rabicon.setPassword("admin");
+		rabicon.setPort(5672);
+		return rabicon;
+	}
+
+
 	@Bean
 	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
