@@ -77,6 +77,10 @@ dependencies {
 	// Rabbit MQ with JMS
 	compile("org.springframework.boot:spring-boot-starter-amqp")
 
+	//	Kuromoji
+	compile("org.apache.lucene:lucene-core:5.5.0")
+	compile("org.apache.lucene:lucene-analyzers-kuromoji:5.5.0")
+	
 	//	mahout
 	compile("org.apache.mahout:mahout-core:0.9")
     

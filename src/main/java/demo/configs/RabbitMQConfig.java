@@ -6,7 +6,7 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class RabbitMQConfig {
 
 	/*@Bean
@@ -23,9 +23,10 @@ public class RabbitMQConfig {
 	CachingConnectionFactory rabbitConnectionFactory(){
 		CachingConnectionFactory rabicon = new CachingConnectionFactory();
 		//amqp.connect('amqp://admin:admin@192.168.3.3:5672/',
-		rabicon.setHost("192.168.3.3");
-		rabicon.setUsername("admin");
-		rabicon.setPassword("admin");
+		//rabicon.setHost("192.168.3.3");
+		rabicon.setHost(Const.Rabbit_Host);
+		rabicon.setUsername(Const.Rabbit_User);
+		rabicon.setPassword(Const.Rabbit_Pass);
 		rabicon.setPort(5672);
 		return rabicon;
 	}

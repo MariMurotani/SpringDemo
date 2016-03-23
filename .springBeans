@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[3.6.4.201503051146-RELEASE]]></pluginVersion>
+	<pluginVersion><![CDATA[3.6.3.201411271034-RELEASE]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
@@ -9,9 +9,14 @@
 	<configs>
 	</configs>
 	<autoconfigs>
-		<config>java:demo.SpringDemoApplication</config>
+		<config>java:demo.controller.AuthController</config>
+		<config>java:demo.controller.UserController</config>
+		<config>java:demo.controller.RabbitController</config>
+		<config>java:demo.controller.CMSController</config>
 		<config>java:demo.controller.MongoDBSampleWeb</config>
-		<config>java:demo.MongExample</config>
+		<config>java:demo.StandfordCoreNLP</config>
+		<config>java:demo.controller.ParserController</config>
+		<config>java:demo.RabbitMQApplication</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

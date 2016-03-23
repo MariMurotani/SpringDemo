@@ -29,20 +29,20 @@ public class ControllerHandler implements HandlerInterceptor  {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
-		System.out.println("---Before Method Execution---");
+		//System.out.println("---Before Method Execution---");
 		
 		// リファラー判定
 		if(handler instanceof HandlerMethod){
 			//	メソッドのアノテーション取得
 			HandlerMethod handlerMethod = (HandlerMethod)handler;
 			ScreenTrans screenTrans = handlerMethod.getMethodAnnotation(ScreenTrans.class);
-			System.out.println(handlerMethod.getMethod().toString());
-			System.out.println(screenTrans);
+			//System.out.println(handlerMethod.getMethod().toString());
+			//System.out.println(screenTrans);
 			
 			//	リファラー取得
 			if(screenTrans  != null && screenTrans.referer() != null){
 				String referer = request.getHeader("referer");
-				System.out.println("path= " + referer + " , patern=" + screenTrans.referer());
+				//System.out.println("path= " + referer + " , patern=" + screenTrans.referer());
 				
 				if(!screenTrans.referer().equals("")){
 					Pattern p = Pattern.compile(screenTrans.referer().trim());
@@ -62,7 +62,7 @@ public class ControllerHandler implements HandlerInterceptor  {
 	    final HttpServletResponse httpResponse = (HttpServletResponse) response;
 	      
 		boolean error = false;
-		System.out.println(httpRequest.getMethod());
+		//System.out.println(httpRequest.getMethod());
 		if (httpRequest.getMethod().startsWith("POST")) {
 			String CSRFKey = "";
 			String CSRFVal = "";
@@ -81,7 +81,7 @@ public class ControllerHandler implements HandlerInterceptor  {
 		    HttpSession httpSession = httpRequest.getSession();
 		    Object object = httpSession.getAttribute(CSRFKey);
 		    if(httpSession != null & object != null){
-		    	System.out.println(object.toString() +"=="+ CSRFVal);
+		    	//System.out.println(object.toString() +"=="+ CSRFVal);
 			    if(object.toString().equals(CSRFVal)){
 		    	error = false;
 			    }
@@ -101,10 +101,9 @@ public class ControllerHandler implements HandlerInterceptor  {
 			if(modelAndView == null){
 				return;
 			}
-			System.out.println("---method executed---");
+			//System.out.println("---method executed---");
 			
 			ModelMap modelmap = modelAndView.getModelMap();
-			System.out.println("always aaa");
 			
 			//String md5key = DigestUtils.md5Hex(String.valueOf(System.currentTimeMillis()) + String.valueOf(Math.random()));
 			//modelAndView.addObject("token1_name","k_"+ md5key);
@@ -114,10 +113,10 @@ public class ControllerHandler implements HandlerInterceptor  {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
 		Object handler, Exception ex) throws Exception {
 		
-		System.out.println("---Request Completed---");
+		//System.out.println("---Request Completed---");
 		Collection<String> heders = response.getHeaderNames();
 		for(String headerName: heders){
-			System.out.println(headerName);
+			//System.out.println(headerName);
 		}
 		
 	}

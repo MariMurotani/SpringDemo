@@ -45,6 +45,7 @@ public class RabbitController {
 			rabbitTemplate.convertAndSend(Const.RabbitMQMessageQue,jsonInString);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			return new Status("NG");
 		}
 		
 		return new Status("OK");
